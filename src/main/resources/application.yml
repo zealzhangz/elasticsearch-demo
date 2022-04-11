@@ -1,0 +1,22 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: elastic-demo
+#  elasticsearch:
+#    uris: 10.1.2.74:9200
+#    read-timeout: 30s
+#    connection-timeout: 5s
+#    username: "elastic"
+#    password: "*HrGyk1vXNa=MoMAkwPY"
+
+rocketmq:
+  name-server:  10.1.2.74:9876
+  producer:
+    group: es-demo
+    send-message-timeout: 3000
+    access-key: RocketMQ
+    secret-key: 12345678
+es:
+  rocketmq:
+    topic: test-topic
