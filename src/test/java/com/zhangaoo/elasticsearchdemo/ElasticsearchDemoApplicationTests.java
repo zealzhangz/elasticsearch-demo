@@ -13,7 +13,7 @@ class ElasticsearchDemoApplicationTests {
 	
 	@Test
 	public void generateData(){
-		generatorService.sendTestMaterialData(10);
+		generatorService.sendTestMaterialData(1);
 	}
 
 }

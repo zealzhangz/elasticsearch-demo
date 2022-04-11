@@ -3,10 +3,10 @@ server:
 spring:
   application:
     name: elastic-demo
-#  elasticsearch:
-#    uris: 10.1.2.74:9200
-#    read-timeout: 30s
-#    connection-timeout: 5s
+  elasticsearch:
+    uris: 10.1.2.74:9200
+    read-timeout: 30s
+    connection-timeout: 5s
 #    username: "elastic"
 #    password: "*HrGyk1vXNa=MoMAkwPY"
 

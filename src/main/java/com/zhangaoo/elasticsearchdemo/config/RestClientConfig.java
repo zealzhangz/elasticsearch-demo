@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
  * @version Version: 0.0.1
  * @date DateTime: 2022/04/08 12:20:00<br/>
  */
-@Configuration
+//@Configuration
 public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
     final TrustManager[] trustAllCerts = new TrustManager[]{
