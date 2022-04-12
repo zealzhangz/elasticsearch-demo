@@ -16,4 +16,9 @@ class ElasticsearchDemoApplicationTests {
 		generatorService.sendTestMaterialData(1);
 	}
 
+
+	@Test
+	public void generateHistoryData(){
+		generatorService.sendTestMaterialHistoryData(10000);
+	}
 }

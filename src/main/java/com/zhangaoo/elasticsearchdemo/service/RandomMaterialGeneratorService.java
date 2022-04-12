@@ -2,6 +2,7 @@ package com.zhangaoo.elasticsearchdemo.service;
 
 import com.alibaba.fastjson.JSON;
 import com.zhangaoo.elasticsearchdemo.entity.Material;
+import com.zhangaoo.elasticsearchdemo.entity.MaterialHistory;
 import com.zhangaoo.elasticsearchdemo.entity.Payload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,10 +79,36 @@ public class RandomMaterialGeneratorService {
         return material;
     }
 
+    public MaterialHistory generateHistory() {
+        MaterialHistory material = new MaterialHistory();
+        material.setId(UUID.randomUUID().toString());
+        material.setMatnr(mantnr[new Random().nextInt(mantnr.length)]);
+        material.setMaktx(maktx.get(material.getMatnr()));
+        material.setMeins(meins.get(material.getMatnr()));
+        material.setMeinsZh(meinsZh.get(material.getMatnr()));
+        material.setMatkl(matkl.get(material.getMatnr()));
+        material.setMatklZh(matklZh.get(material.getMatnr()));
+        material.setWerks(werks.get(material.getMatnr()));
+        material.setCreateTime(new Date());
+        material.setNum(new Random().nextInt(100));
+        BigDecimal bd = BigDecimal.valueOf(new Random().nextDouble());
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        material.setPrice(bd.doubleValue());
+        return material;
+    }
+
     public List<Material> batchGenerate(int size) {
         List<Material> batch = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             batch.add(generate());
+        }
+        return batch;
+    }
+
+    public List<MaterialHistory> batchGenerateHistory(int size) {
+        List<MaterialHistory> batch = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            batch.add(generateHistory());
         }
         return batch;
     }
@@ -92,6 +119,20 @@ public class RandomMaterialGeneratorService {
             payload.setIdType("test");
             payload.setPayload(JSON.toJSONString(batchGenerate(10)));
             mqService.asyncSend(sendTopic, payload);
+        }
+    }
+
+    public void sendTestMaterialHistoryData(int count){
+        for (int i = 0; i < count; i++) {
+            Payload payload = new Payload();
+            payload.setIdType("test");
+            payload.setPayload(JSON.toJSONString(batchGenerateHistory(100)));
+            mqService.asyncSend(sendTopic, payload);
+            try {
+                Thread.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

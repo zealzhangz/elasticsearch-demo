@@ -1,7 +1,9 @@
 package com.zhangaoo.elasticsearchdemo.service;
 
 import com.zhangaoo.elasticsearchdemo.entity.Material;
+import com.zhangaoo.elasticsearchdemo.entity.MaterialHistory;
 import com.zhangaoo.elasticsearchdemo.repository.MaterialElasticsearchRepository;
+import com.zhangaoo.elasticsearchdemo.repository.MaterialHistoryElasticsearchRepository;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -28,6 +30,9 @@ import java.util.Map;
 public class EsMaterialService {
     @Autowired
     private MaterialElasticsearchRepository materialElasticsearchRepository;
+    
+    @Autowired
+    private MaterialHistoryElasticsearchRepository materialHistoryElasticsearchRepository;
 
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
@@ -39,6 +44,10 @@ public class EsMaterialService {
 
     public void saveAllMaterial(List<Material> materials) {
         materialElasticsearchRepository.saveAll(materials);
+    }
+
+    public void saveAllMaterialHistory(List<MaterialHistory> materials) {
+        materialHistoryElasticsearchRepository.saveAll(materials);
     }
 
     public void deleteMaterialById(String id) {

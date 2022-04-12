@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhangaoo.elasticsearchdemo.entity.Material;
+import com.zhangaoo.elasticsearchdemo.entity.MaterialHistory;
 import com.zhangaoo.elasticsearchdemo.entity.Payload;
 import com.zhangaoo.elasticsearchdemo.service.EsMaterialService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +40,8 @@ public class ConsumeListener implements RocketMQListener<MessageExt>, RocketMQPu
         try {
             payload = objectMapper.readValue(message.getBody(), Payload.class);
             if(payload != null &&  payload.getIdType() != null && "test".equals(payload.getIdType())){
-                List<Material> materials = JSON.parseObject(payload.getPayload(),  new TypeReference<List<Material>>(){});
-                esMaterialService.saveAllMaterial(materials);
+                List<MaterialHistory> materials = JSON.parseObject(payload.getPayload(),  new TypeReference<List<MaterialHistory>>(){});
+                esMaterialService.saveAllMaterialHistory(materials);
             } else {
                 //略过
             }

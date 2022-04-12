@@ -20,3 +20,7 @@ rocketmq:
 es:
   rocketmq:
     topic: test-topic
+    
+logging:
+  level:
+    root: error    
